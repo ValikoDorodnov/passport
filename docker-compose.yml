@@ -1,8 +1,10 @@
 version: "3.9"
 services:
   go:
+    container_name: SERVER_GO
     build:
-      dockerfile: Dockerfile
+      dockerfile: docker/go/Dockerfile
+      target: dev
       context: ./
     ports:
       - "8080:8080"
