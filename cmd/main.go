@@ -13,11 +13,9 @@ func main() {
 		log.Fatal(err)
 	}
 
-	for _, route := range router.DefineRoutes() {
-		http.HandleFunc(route.Path, route.Handler)
-	}
+	handler := router.New()
 
-	if err := http.ListenAndServe(":8080", nil); err != nil {
+	if err := http.ListenAndServe(":8099", handler); err != nil {
 		log.Fatal(err)
 	}
 }
