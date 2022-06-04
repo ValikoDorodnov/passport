@@ -3,6 +3,7 @@ package router
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/ValikoDorodnov/passport/internal/app/article"
 	"net/http"
 	"regexp"
 	"strings"
@@ -24,6 +25,7 @@ type route struct {
 var routes = []route{
 	newRoute("GET", "/", handleMain),
 	newRoute("POST", "/auth", handleAuth),
+	newRoute("GET", "/article", handleArticle),
 }
 
 func newRoute(method, pattern string, handler http.HandlerFunc) route {
@@ -45,6 +47,12 @@ func handleAuth(w http.ResponseWriter, r *http.Request) {
 	}
 
 	fmt.Fprintf(w, "User: %+v", u)
+}
+
+func handleArticle(w http.ResponseWriter, r *http.Request) {
+	a := article.GetArticle()
+
+	fmt.Fprintf(w, "Article: %+v", a)
 }
 
 func (router router) ServeHTTP(w http.ResponseWriter, r *http.Request) {

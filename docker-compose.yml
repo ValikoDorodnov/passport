@@ -7,4 +7,27 @@ services:
       target: dev
       context: ./
     ports:
-      - "8080:8080"
+      - "8099:8099"
+    networks:
+      - passport_net
+
+  postgres:
+    container_name: POSTGRES_GO
+    image: postgres:12.2-alpine
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    volumes:
+      - go-postgres-vol:/var/lib/postgresql/data
+    ports:
+      - ${DB_PORT}
+    networks:
+      - passport_net
+
+networks:
+  passport_net:
+    driver: bridge
+
+volumes:
+  go-postgres-vol:
