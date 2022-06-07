@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/ValikoDorodnov/passport/internal/db"
 	"github.com/ValikoDorodnov/passport/internal/router"
 	"github.com/joho/godotenv"
 	"log"
@@ -9,6 +10,8 @@ import (
 
 func main() {
 	err := godotenv.Load()
+	db.Init()
+
 	if err != nil {
 		log.Fatal(err)
 	}

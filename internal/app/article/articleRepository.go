@@ -8,7 +8,7 @@ import (
 )
 
 func GetArticle() Article {
-	conn := db.Connection()
+	conn := db.Connection
 	defer conn.Close(context.Background())
 
 	var article Article

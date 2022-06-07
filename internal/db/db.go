@@ -7,16 +7,17 @@ import (
 	"os"
 )
 
-func Connection() *pgx.Conn {
+var Connection *pgx.Conn
+
+func Init() {
 	// следует закрывать соединение в месте вызова
 	// defer conn.Close(context.Background())
 
-	conn, err := pgx.Connect(context.Background(), os.Getenv("DB_DSN"))
+	var err error
+	Connection, err = pgx.Connect(context.Background(), os.Getenv("DB_DSN"))
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Unable to connect to database: %v\n", err)
 		os.Exit(1)
 
 	}
-
-	return conn
 }
