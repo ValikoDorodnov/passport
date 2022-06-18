@@ -25,6 +25,23 @@ services:
     networks:
       - passport_net
 
+  migration:
+    container_name: MIGRATION_GO
+    build:
+      dockerfile: docker/migration/Dockerfile
+      context: ./
+    volumes:
+      - ./migrations:/migrations
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+      DB_HOST: ${DB_HOST}
+    depends_on:
+      - postgres
+    networks:
+      - passport_net
+
 networks:
   passport_net:
     driver: bridge

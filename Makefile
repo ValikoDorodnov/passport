@@ -1,3 +1,8 @@
+#-------------------------------SYSTEM-----------------------------------
+include .env
+export
+#-------------------------------------------------------------------------
+
 #-------------------------------Development-------------------------------
 reboot: env-init docker-down-clear docker-up
 
@@ -17,4 +22,7 @@ docker-up:
 
 sh:
 	docker exec -it SERVER_GO sh
+
+migration:
+	docker-compose run --rm migration goose postgres "$(DB_STR)" $(filter-out $@,$(MAKECMDGOALS))
 #-------------------------------------------------------------------------
